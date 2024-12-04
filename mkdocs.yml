@@ -1,0 +1,17 @@
+site_name: Configs
+theme:
+  name: readthedocs  # Material Design teması (isteğe bağlı, aşağıda anlatılacak)
+nav:
+  - Home: index.md
+  - About: about.md
+  - Postfix Kurulumu: postfixkurulum.md
+  - Main.cf: main-cf.md
+  - Master.cf: master-cf.md
+  - Veri Tabanı Scriptleri: veritabaniscriptleri.md
+  - dovecot.conf dosyası: dovecot.conf.md
+  - dovecot-sql.conf.ext dosyası: dovecot-sql.conf.ext.md
+  - 10-auth.conf dosyası: 10-auth.conf.md
+  - 10-mail.conf dosyası: 10-mail.conf.md
+  - 10-master.conf dosyası: 10-master.conf.md
+  - 10-ssl.conf dosyası: 10-ssl.conf.md
+  - Spamassassin local.cf dosyası: local.cf.md

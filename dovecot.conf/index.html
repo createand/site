@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>dovecot.conf dosyası - Configs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "dovecot.conf dosyas\u0131";
+        var mkdocs_page_input_path = "dovecot.conf.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Configs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../postfixkurulum/">Postfix Kurulumu</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../main-cf/">Main.cf</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../master-cf/">Master.cf</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../veritabaniscriptleri/">Veri Tabanı Scriptleri</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">dovecot.conf dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dovecot-sql.conf.ext/">dovecot-sql.conf.ext dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../10-auth.conf/">10-auth.conf dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../10-mail.conf/">10-mail.conf dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../10-master.conf/">10-master.conf dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../10-ssl.conf/">10-ssl.conf dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../local.cf/">Spamassassin local.cf dosyası</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Configs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">dovecot.conf dosyası</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <pre><code>protocols = imap pop3 lmtp
+disable_plaintext_auth = no
+
+
+#mail_location = maildir:/var/mail/vhosts/%d/%n
+auth_mechanisms = plain login
+#mail_home = /home/mail/vhosts/%d/%n
+#passdb {
+    #driver = sql
+    #args = /etc/dovecot/dovecot-sql.conf.ext 
+#}
+
+#userdb {
+     #driver = sql
+     #args = /etc/dovecot/dovecot-sql.conf.ext
+#}
+
+
+
+#userdb {
+    #driver = sql
+    #args = /etc/dovecot/dovecot-sql.conf.ext 
+#}
+
+#service auth {
+    #unix_listener auth-client {
+        #group = postfix
+        #mode = 0660
+        #user = postfix
+    #}
+    #user = root
+#}
+
+
+
+## Dovecot configuration file
+
+# If you're in a hurry, see http://wiki2.dovecot.org/QuickConfiguration
+
+# "doveconf -n" command gives a clean output of the changed settings. Use it
+# instead of copy&amp;pasting files when posting to the Dovecot mailing list.
+
+# '#' character and everything after it is treated as comments. Extra spaces
+# and tabs are ignored. If you want to use either of these explicitly, put the
+# value inside quotes, eg.: key = "# char and trailing whitespace  "
+
+# Most (but not all) settings can be overridden by different protocols and/or
+# source/destination IPs by placing the settings inside sections, for example:
+# protocol imap { }, local 127.0.0.1 { }, remote 10.0.0.0/8 { }
+
+# Default values are shown for each setting, it's not required to uncomment
+# those. These are exceptions to this though: No sections (e.g. namespace {})
+# or plugin settings are added by default, they're listed only as examples.
+# Paths are also just examples with the real defaults being based on configure
+# options. The paths listed here are for configure --prefix=/usr
+# --sysconfdir=/etc --localstatedir=/var
+
+# Enable installed protocols
+!include_try /usr/share/dovecot/protocols.d/*.protocol
+
+# A comma separated list of IPs or hosts where to listen in for connections. 
+# "*" listens in all IPv4 interfaces, "::" listens in all IPv6 interfaces.
+# If you want to specify non-default ports or anything more complex,
+
+# edit conf.d/master.conf.
+#listen = *, ::
+
+# Base directory where to store runtime data.
+#base_dir = /var/run/dovecot/
+
+# Name of this instance. In multi-instance setup doveadm and other commands
+# can use -i &lt;instance_name&gt; to select which instance is used (an alternative
+# to -c &lt;config_path&gt;). The instance name is also added to Dovecot processes
+# in ps output.
+#instance_name = dovecot
+
+# Greeting message for clients.
+#login_greeting = Dovecot ready.
+
+# Space separated list of trusted network ranges. Connections from these
+# IPs are allowed to override their IP addresses and ports (for logging and
+# for authentication checks). disable_plaintext_auth is also ignored for
+# these networks. Typically you'd specify your IMAP proxy servers here.
+#login_trusted_networks =
+
+# Space separated list of login access check sockets (e.g. tcpwrap)
+#login_access_sockets =
+
+# With proxy_maybe=yes if proxy destination matches any of these IPs, don't do
+# proxying. This isn't necessary normally, but may be useful if the destination
+# IP is e.g. a load balancer's IP.
+#auth_proxy_self =
+
+# Show more verbose process titles (in ps). Currently shows user name and
+# IP address. Useful for seeing who are actually using the IMAP processes
+# (eg. shared mailboxes or if same uid is used for multiple accounts).
+#verbose_proctitle = no
+
+# Should all processes be killed when Dovecot master process shuts down.
+# Setting this to "no" means that Dovecot can be upgraded without
+# forcing existing client connections to close (although that could also be
+# a problem if the upgrade is e.g. because of a security fix).
+#shutdown_clients = yes
+
+# If non-zero, run mail commands via this many connections to doveadm server,
+# instead of running them directly in the same process.
+#doveadm_worker_count = 0
+# UNIX socket or host:port used for connecting to doveadm server
+#doveadm_socket_path = doveadm-server
+
+# Space separated list of environment variables that are preserved on Dovecot
+# startup and passed down to all of its child processes. You can also give
+# key=value pairs to always set specific settings.
+#import_environment = TZ
+
+##
+## Dictionary server settings
+##
+
+# Dictionary can be used to store key=value lists. This is used by several
+# plugins. The dictionary can be accessed either directly or though a
+# dictionary server. The following dict block maps dictionary names to URIs
+# when the server is used. These can then be referenced using URIs in format
+# "proxy::&lt;name&gt;".
+
+dict {
+  #quota = mysql:/etc/dovecot/dovecot-dict-sql.conf.ext
+  #expire = sqlite:/etc/dovecot/dovecot-dict-sql.conf.ext
+}
+
+# Most of the actual configuration gets included below. The filenames are
+# first sorted by their ASCII value and parsed in that order. The 00-prefixes
+# in filenames are intended to make it easier to understand the ordering.
+!include conf.d/*.conf
+
+# A config file can also tried to be included without giving an error if
+# it's not found:
+#!include_try local.conf
+
+
+
+
+#!include auth-sql.conf.ext
+
+
+
+plugin {
+    sieve_before = /etc/dovecot/sieve/global/spamfilter.sieve
+}
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../veritabaniscriptleri/" class="btn btn-neutral float-left" title="Veri Tabanı Scriptleri"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../dovecot-sql.conf.ext/" class="btn btn-neutral float-right" title="dovecot-sql.conf.ext dosyası">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../veritabaniscriptleri/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../dovecot-sql.conf.ext/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

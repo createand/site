@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>10-auth.conf dosyası - Configs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "10-auth.conf dosyas\u0131";
+        var mkdocs_page_input_path = "10-auth.conf.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Configs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../postfixkurulum/">Postfix Kurulumu</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../main-cf/">Main.cf</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../master-cf/">Master.cf</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../veritabaniscriptleri/">Veri Tabanı Scriptleri</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dovecot.conf/">dovecot.conf dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dovecot-sql.conf.ext/">dovecot-sql.conf.ext dosyası</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">10-auth.conf dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../10-mail.conf/">10-mail.conf dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../10-master.conf/">10-master.conf dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../10-ssl.conf/">10-ssl.conf dosyası</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../local.cf/">Spamassassin local.cf dosyası</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Configs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">10-auth.conf dosyası</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <pre><code>##
+## Authentication processes
+##
+
+# Disable LOGIN command and all other plaintext authentications unless
+# SSL/TLS is used (LOGINDISABLED capability). Note that if the remote IP
+# matches the local IP (ie. you're connecting from the same computer), the
+# connection is considered secure and plaintext authentication is allowed.
+# See also ssl=required setting.
+disable_plaintext_auth = yes
+
+# Authentication cache size (e.g. 10M). 0 means it's disabled. Note that
+# bsdauth, PAM and vpopmail require cache_key to be set for caching to be used.
+#auth_cache_size = 0
+# Time to live for cached data. After TTL expires the cached record is no
+# longer used, *except* if the main database lookup returns internal failure.
+# We also try to handle password changes automatically: If user's previous
+# authentication was successful, but this one wasn't, the cache isn't used.
+# For now this works only with plaintext authentication.
+#auth_cache_ttl = 1 hour
+# TTL for negative hits (user not found, password mismatch).
+# 0 disables caching them completely.
+#auth_cache_negative_ttl = 1 hour
+
+# Space separated list of realms for SASL authentication mechanisms that need
+# them. You can leave it empty if you don't want to support multiple realms.
+# Many clients simply use the first one listed here, so keep the default realm
+# first.
+#auth_realms =
+
+# Default realm/domain to use if none was specified. This is used for both
+# SASL realms and appending @domain to username in plaintext logins.
+#auth_default_realm =
+
+# List of allowed characters in username. If the user-given username contains
+# a character not listed in here, the login automatically fails. This is just
+# an extra check to make sure user can't exploit any potential quote escaping
+# vulnerabilities with SQL/LDAP databases. If you want to allow all characters,
+# set this value to empty.
+#auth_username_chars = abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890.-_@
+
+# Username character translations before it's looked up from databases. The
+# value contains series of from -&gt; to characters. For example "#@/@" means
+# that '#' and '/' characters are translated to '@'.
+#auth_username_translation =
+
+# Username formatting before it's looked up from databases. You can use
+# the standard variables here, eg. %Lu would lowercase the username, %n would
+# drop away the domain if it was given, or "%n-AT-%d" would change the '@' into
+# "-AT-". This translation is done after auth_username_translation changes.
+#auth_username_format = %Lu
+
+# If you want to allow master users to log in by specifying the master
+# username within the normal username string (ie. not using SASL mechanism's
+# support for it), you can specify the separator character here. The format
+# is then &lt;username&gt;&lt;separator&gt;&lt;master username&gt;. UW-IMAP uses "*" as the
+# separator, so that could be a good choice.
+#auth_master_user_separator =
+
+# Username to use for users logging in with ANONYMOUS SASL mechanism
+#auth_anonymous_username = anonymous
+
+# Maximum number of dovecot-auth worker processes. They're used to execute
+# blocking passdb and userdb queries (eg. MySQL and PAM). They're
+# automatically created and destroyed as needed.
+#auth_worker_max_count = 30
+
+# Host name to use in GSSAPI principal names. The default is to use the
+# name returned by gethostname(). Use "$ALL" (with quotes) to allow all keytab
+# entries.
+#auth_gssapi_hostname =
+
+# Kerberos keytab to use for the GSSAPI mechanism. Will use the system
+# default (usually /etc/krb5.keytab) if not specified. You may need to change
+# the auth service to run as root to be able to read this file.
+#auth_krb5_keytab =
+
+# Do NTLM and GSS-SPNEGO authentication using Samba's winbind daemon and
+# ntlm_auth helper. &lt;doc/wiki/Authentication/Mechanisms/Winbind.txt&gt;
+#auth_use_winbind = no
+
+# Path for Samba's ntlm_auth helper binary.
+#auth_winbind_helper_path = /usr/bin/ntlm_auth
+
+# Time to delay before replying to failed authentications.
+#auth_failure_delay = 2 secs
+
+# Require a valid SSL client certificate or the authentication fails.
+#auth_ssl_require_client_cert = no
+
+# Take the username from client's SSL certificate, using 
+# X509_NAME_get_text_by_NID() which returns the subject's DN's
+# CommonName. 
+#auth_ssl_username_from_cert = no
+
+# Space separated list of wanted authentication mechanisms:
+#   plain login digest-md5 cram-md5 ntlm rpa apop anonymous gssapi otp skey
+#   gss-spnego
+# NOTE: See also disable_plaintext_auth setting.
+auth_mechanisms = plain login
+
+##
+## Password and user databases
+##
+
+#
+# Password database is used to verify user's password (and nothing more).
+# You can have multiple passdbs and userdbs. This is useful if you want to
+# allow both system users (/etc/passwd) and virtual users to login without
+# duplicating the system users into virtual database.
+#
+# &lt;doc/wiki/PasswordDatabase.txt&gt;
+#
+# User database specifies where mails are located and what user/group IDs
+# own them. For single-UID configuration use "static" userdb.
+#
+# &lt;doc/wiki/UserDatabase.txt&gt;
+
+#!include auth-deny.conf.ext
+#!include auth-master.conf.ext
+
+!include auth-system.conf.ext
+!include auth-sql.conf.ext
+#!include auth-ldap.conf.ext
+#!include auth-passwdfile.conf.ext
+#!include auth-checkpassword.conf.ext
+#!include auth-vpopmail.conf.ext
+#!include auth-static.conf.ext
+
+
+
+passdb {
+    driver = sql
+    args = /etc/dovecot/dovecot-sql.conf.ext
+}
+userdb {
+    driver = sql
+    args = /etc/dovecot/dovecot-sql.conf.ext
+}
+
+
+###### IMAP Etkinleştirme
+
+
+service imap-login {
+    inet_listener imap {
+        port = 143
+        # Enable plaintext (non-secure) IMAP connection, if needed.
+        # ssl = no
+    }
+    inet_listener imaps {
+        port = 993
+        ssl = yes
+    }
+}
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../dovecot-sql.conf.ext/" class="btn btn-neutral float-left" title="dovecot-sql.conf.ext dosyası"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../10-mail.conf/" class="btn btn-neutral float-right" title="10-mail.conf dosyası">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../dovecot-sql.conf.ext/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../10-mail.conf/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
