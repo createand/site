@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>10-master.conf dosyası - Configs</title>
+    <title>Irfan Yıldırım deneme - Configs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "10-master.conf dosyas\u0131";
-        var mkdocs_page_input_path = "10-master.conf.md";
+        var mkdocs_page_name = "Irfan Y\u0131ld\u0131r\u0131m deneme";
+        var mkdocs_page_input_path = "irfan-yildirim.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -79,8 +79,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="../10-mail.conf/">10-mail.conf dosyası</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">10-master.conf dosyası</a>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../10-master.conf/">10-master.conf dosyası</a>
                 </li>
               </ul>
               <ul>
@@ -91,8 +91,12 @@
                 <li class="toctree-l1"><a class="reference internal" href="../local.cf/">Spamassassin local.cf dosyası</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../irfan-yildirim/">Irfan Yıldırım deneme</a>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Irfan Yıldırım deneme</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#baslk-2">Başlık 2</a>
+    </li>
+    </ul>
                 </li>
               </ul>
       </div>
@@ -109,7 +113,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">10-master.conf dosyası</li>
+      <li class="breadcrumb-item active">Irfan Yıldırım deneme</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -118,163 +122,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <pre><code>#default_process_limit = 100
-#default_client_limit = 1000
-
-# Default VSZ (virtual memory size) limit for service processes. This is mainly
-# intended to catch and kill processes that leak memory before they eat up
-# everything.
-#default_vsz_limit = 256M
-
-# Login user is internally used by login processes. This is the most untrusted
-# user in Dovecot system. It shouldn't have access to anything at all.
-#default_login_user = dovenull
-
-# Internal user is used by unprivileged processes. It should be separate from
-# login user, so that login processes can't disturb other processes.
-#default_internal_user = dovecot
-
-service imap-login {
-  inet_listener imap {
-    port = 143
-  }
-  inet_listener imaps {
-    port = 993
-    ssl = yes
-  }
-
-  # Number of connections to handle before starting a new process. Typically
-  # the only useful values are 0 (unlimited) or 1. 1 is more secure, but 0
-  # is faster. &lt;doc/wiki/LoginProcess.txt&gt;
-  #service_count = 1
-
-  # Number of processes to always keep waiting for more connections.
-  #process_min_avail = 0
-
-  # If you set service_count=0, you probably need to grow this.
-  #vsz_limit = $default_vsz_limit
-}
-
-service pop3-login {
-  inet_listener pop3 {
-    port = 110
-  }
-  inet_listener pop3s {
-    port = 995
-    ssl = yes
-  }
-}
-
-service submission-login {
-  inet_listener submission {
-    #port = 587
-  }
-}
-
-service lmtp {
-  unix_listener /var/spool/postfix/private/dovecot-lmtp {
-    mode = 0600
-    user = postfix
-    group = postfix
-  }
-
-  # Create inet listener only if you can't use the above UNIX socket
-  #inet_listener lmtp {
-    # Avoid making LMTP visible for the entire internet
-    #address =
-    #port = 
-  #}
-}
-
-service imap {
-  # Most of the memory goes to mmap()ing files. You may need to increase this
-  # limit if you have huge mailboxes.
-  #vsz_limit = $default_vsz_limit
-
-  # Max. number of IMAP processes (connections)
-  #process_limit = 1024
-}
-
-service pop3 {
-  # Max. number of POP3 processes (connections)
-  #process_limit = 1024
-}
-
-service submission {
-  # Max. number of SMTP Submission processes (connections)
-  #process_limit = 1024
-}
-
-
-service auth {
-  # auth_socket_path points to this userdb socket by default. It's typically
-  # used by dovecot-lda, doveadm, possibly imap process, etc. Users that have
-  # full permissions to this socket are able to get a list of all usernames and
-  # get the results of everyone's userdb lookups.
-  #
-  # The default 0666 mode allows anyone to connect to the socket, but the
-  # userdb lookups will succeed only if the userdb returns an "uid" field that
-  # matches the caller process's UID. Also if caller's uid or gid matches the
-  # socket's uid or gid the lookup succeeds. Anything else causes a failure.
-  #
-  # To give the caller full permissions to lookup all users, set the mode to
-  # something else than 0666 and Dovecot lets the kernel enforce the
-  # permissions (e.g. 0777 allows everyone full permissions).
-  unix_listener auth-userdb {
-    mode = 0600
-    user =  dovecot
-    group = dovecot
-  }
-
-  # Postfix smtp-auth
-  unix_listener /var/spool/postfix/private/auth {
-    mode = 0666
-    user = postfix
-    group = postfix
-  }
-
-
-  # Auth process is run as this user.
-  #user = $default_internal_user
-}
-
-auth_mechanisms = plain login
-
-service auth-worker {
-  # Auth worker process is run as root by default, so that it can access
-  # /etc/shadow. If this isn't necessary, the user should be changed to
-  # $default_internal_user.
-  #user = root
-}
-
-service dict {
-  # If dict proxy is used, mail processes should have access to its socket.
-  # For example: mode=0660, group=vmail and global mail_access_groups=vmail
-  unix_listener dict {
-    #mode = 0600
-    #user = 
-    #group = 
-  }
-}
-
-
-
-service managesieve-login {
-  inet_listener sieve {
-    port = 4190
-  }
-}
-
-service managesieve {
-  process_limit = 1024
-}
-</code></pre>
+                <h1 id="hos-geldiniz">Hoş Geldiniz</h1>
+<p>Bu, benim ilk MkDocs projem!</p>
+<h2 id="baslk-2">Başlık 2</h2>
+<ul>
+<li>Madde 1</li>
+<li>Madde 2</li>
+<li>Madde 24</li>
+<li>Madde 25</li>
+<li>Madde 26</li>
+<li>MADDE 58</li>
+<li>MADDE 100</li>
+</ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../10-mail.conf/" class="btn btn-neutral float-left" title="10-mail.conf dosyası"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../10-ssl.conf/" class="btn btn-neutral float-right" title="10-ssl.conf dosyası">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../local.cf/" class="btn btn-neutral float-left" title="Spamassassin local.cf dosyası"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -297,10 +161,8 @@ service managesieve {
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../10-mail.conf/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../local.cf/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-    
-      <span><a href="../10-ssl.conf/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
